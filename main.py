@@ -15,6 +15,7 @@ class App(Frame):
         self.window.bind("<Control-Key-R>", self.runscript)
         self.window.bind("<Escape>", self.exit_window)
 
+        # Nav Frame
         self.nav = tk.Frame(self.window)
         self.nav.pack(fill=tk.X)
 
@@ -25,8 +26,11 @@ class App(Frame):
         self.scriptbox.bind("<Control-Key-A>", self.select_all)
         self.scriptbox.focus_set()
 
-        self.runbtn = tk.Button(self.nav, text="run", command=self.runscript)
+        self.runbtn = tk.Button(self.nav, text="Run", command=self.runscript)
         self.runbtn.pack(side=tk.RIGHT)
+
+        self.helpbtn = tk.Button(self.nav, text="Help", command=self.show_help)
+        self.helpbtn.pack(side=tk.RIGHT)
 
     def runscript(self, event=None):
         old_stdout = sys.stdout
@@ -68,8 +72,11 @@ class App(Frame):
     def exit_window(self, event):
         event.widget.master.master.destroy()
 
+    def show_help(self):
+        help_message = ""
+
 root = tk.Tk()
-root.title("runPyGUI")
+root.title("GUIS")
 root.geometry('500x400')
 myapp = App(root)
 
