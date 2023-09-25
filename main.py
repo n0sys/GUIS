@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import scrolledtext
 from tkinter import Frame
-from tkinter import messagebox
 import sys
 from io import StringIO
 
@@ -11,9 +10,14 @@ class App(Frame):
 
         self.window = master
 
+        # Run bind
         self.window.bind("<Control-Key-r>", self.runscript)
         self.window.bind("<Control-Key-R>", self.runscript)
+        # Exit bind
         self.window.bind("<Escape>", self.exit_window)
+        # Help bind
+        self.window.bind("<Control-Key-H>", self.show_help)
+        self.window.bind("<Control-Key-h>", self.show_help)
 
         # Nav Frame
         self.nav = tk.Frame(self.window)
@@ -72,8 +76,30 @@ class App(Frame):
     def exit_window(self, event):
         event.widget.master.master.destroy()
 
-    def show_help(self):
-        help_message = ""
+    def show_help(self, event=None):
+        helpWindow = tk.Tk()
+        helpWindow.title("Help")
+        
+        helpWindow.bind("<Escape>", self.exit_window)
+
+        helpBox = scrolledtext.ScrolledText(helpWindow)
+
+        helpBox.focus_set()
+        
+        helpBox.pack(expand=True, fill=tk.BOTH)
+
+        helpBox.insert(tk.INSERT, _help_text)
+        helpBox.configure(state = tk.DISABLED)
+
+_help_text = """Graphical User Interface Script is a tool to run your scripts in a GUI.
+
+But why? Cz im sick of creating files to run my scripts only to delete them right afterwards
+
+Hotkeys to help you go fast:
+- CTRL+ESC: Close open window
+- CTRL+A: Select all
+- CTRL+R: Run script
+- CTRL+H: Display this text message"""
 
 root = tk.Tk()
 root.title("GUIS")
