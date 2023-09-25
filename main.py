@@ -5,7 +5,6 @@ from io import StringIO
 import platform
 import uuid
 import os
-import subprocess
 import stat
 
 class App(Frame):
@@ -33,7 +32,7 @@ class App(Frame):
         self.nav.pack(fill=tk.X)
 
         # Script Frame
-        self.scriptbox = scrolledtext.ScrolledText(self.window)
+        self.scriptbox = scrolledtext.ScrolledText(self.window, undo=True)
         self.scriptbox.pack(fill=tk.BOTH, expand=True)
         self.scriptbox.bind("<Control-Key-a>", self.select_all)
         self.scriptbox.bind("<Control-Key-A>", self.select_all)
@@ -101,7 +100,7 @@ class App(Frame):
         
         outputWindow.bind("<Escape>", self.exit_window)
 
-        outputBox = scrolledtext.ScrolledText(outputWindow)
+        outputBox = scrolledtext.ScrolledText(outputWindow, undo=True)
 
         # Output box binds
         outputBox.bind("<Control-Key-a>", self.select_all)
@@ -156,12 +155,12 @@ _help_text = """Graphical User Interface Script is a tool to run your scripts in
 But why? Cz im sick of creating files to run my scripts only to delete them right afterwards
 
 Hotkeys to help you go fast:
-- CTRL+ESC: Close open window
-- CTRL+A: Select all
-- CTRL+R: Run script
-- ALT+Right/Left: Switch languages
-- Control-BackSpace: Delete whole word
-- CTRL+H: Display this text message"""
+- CTRL + ESC: Close open window
+- CTRL + A: Select all
+- CTRL + R: Run script
+- ALT + Right/Left: Switch languages
+- CTRL + BackSpace: Delete whole word
+- CTRL + H: Display this text message"""
 
 root = tk.Tk()
 root.title("GUIS")
