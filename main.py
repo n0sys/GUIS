@@ -73,6 +73,7 @@ class App(Frame):
                 output = mystdout.getvalue()
             except Exception as e:
                 output = e
+                
         # Bash
         elif language == "Bash":
             # Create tmp bash file 
@@ -87,10 +88,26 @@ class App(Frame):
             # Run script
             outputfile = f"{write_dir}/output.{str(uuid.uuid4())}.guis"
             os.system(f"bash {filepath} >{outputfile} 2>&1")
-            with open(outputfile, "r") as outputfile:
-                output = "".join(outputfile.readlines())
-
+            with open(outputfile, "r") as outputfileobj:
+                output = "".join(outputfileobj.readlines())
             os.remove(filepath)
+            os.remove(outputfile)
+
+        # Powershell
+        elif language == "Powershell":
+            # Create tmp bash file 
+            filepath = f"./{str(uuid.uuid4())}.ps1"
+            with open(filepath, "w") as scriptfile:
+                scriptfile.write(script)
+            
+            # Run script
+            outputfile = f"output.{str(uuid.uuid4())}.guis"
+            os.system(f"powershell.exe {filepath} > {outputfile}")
+            with open(outputfile, "r") as outputfileobj:
+                 output = "".join(outputfileobj.readlines())
+            os.remove(filepath)
+            os.remove(outputfile)
+
         self.output(output)
         
     
