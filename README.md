@@ -7,4 +7,9 @@
 But why? Cz im sick of creating files to run my scripts only to delete them right afterwards
 
 ## Scripting Languages
+
 Currently supports Python only. Planning to add support to other languages.
+
+## TODO
+
+Add java ? 
